@@ -6,10 +6,12 @@
   "properties": {
     "unlocode": {
       "type": "string",
+      "pattern": "^[A-Z]{2}([A-Z]|[2-9]){3}$",
       "description": "UN/LOCODE with 5 (uppercase) characters: two for the country code and two for the location"
     },
     "coordinates": {
       "type": "string",
+      "pattern": "^[0-9]{4}(N|S) [0-9]{5}(W|E)$",
       "description": "Coordinates of the location according to UN/LOCODE"
     }
   }
