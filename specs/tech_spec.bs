@@ -1,0 +1,189 @@
+<pre class='metadata'>
+Title: UN/LOCODE Data Model Extension (Version 0.1.0-20230522)
+Shortname: locode-data-model-extension
+Level: 1
+Status: LD
+URL: https://sine-fdn.github.io/locode-extension/
+Editor:
+Mailing List: public-dev@pathfinder.sine.dev
+Repository: sine-fdn/locode-extension
+Abstract: This document specifies an extension to the [Pathfinder Data Model](https://wbcsd.github.io/data-exchange-protocol/v2/#data-model) allowing `ProductFootprint`s to include a UN/LOCODE.
+Markup Shorthands: markdown yes
+Boilerplate: omit conformance, omit copyright
+</pre>
+
+# Introduction # {#introduction}
+
+This document contains the necessary technical foundation for the UN/LOCODE extension to the  [Pathfinder Framework Data
+Model](https://wbcsd.github.io/data-exchange-protocol/v2/#data-model).
+
+The Pathfinder Framework Data Model allows for the interoperable exchange of product footprint data. This includes the
+product's carbon footprint, represented in the Data Model as a [CarbonFootprint](https://wbcsd.github.io/data-exchange-protocol/v2/#dt-carbonfootprint).
+Each `CarbonFootprint` is scoped by Geography, specified (at maximum resolution) as a ISO 3166-2 country subdivision.
+
+In some cases, the current resolution is unsuficient and a more precise, hopefully plant-level, geographic specification
+would be recommended. The UN/LOCODE Data Model Extension aims at providing precisely the required level of granularity,
+using an international coding scheme that is public and can be integrated into solutions.
+
+As its name suggests
+([United Nations Code for Trade and Transport Locations](https://unece.org/trade/uncefact/unlocode)), UN/LOCODE has the
+advantage of being maintained by the United Nations, ensuring maintenance and data quality. A list of all UN/LOCODEs can
+be found [here](https://unece.org/trade/cefact/unlocode-code-list-country-and-territory).
+
+# Data Model Extension # {#data-model-extension}
+
+The UN/LOCODE data model extension adds four properties to the `ProductFootprint` (see [[#example]]):
+: `unlocode`
+: `coordinates`
+: `name`
+: `remarks`
+
+## Data Type: <dfn element>UNLOCODE</dfn> ## {#un-locode}
+
+A `UN/LOCODE` is a string and MUST be composed by a 2-character country code and a 3-character location.
+
+Country codes are exclusively constituted by capital letters from A to Z.
+
+Locations are primarily composed by capital letters from A to Z but might, when the letter combinations have been
+exhausted, include numerals from 2 to 9.
+
+An `UN/LOCODE` MUST NOT include whitespace.
+
+<pre class=example>
+`"ZMCHZ"`
+</pre>
+
+## Data Type: <dfn element>Coordinates</dfn> ## {#coordinates}
+
+`Coordinates` is a string and MUST be composed by a [=latitude=] and a [=longitude=] separated by a whitespace.
+
+: <dfn>latitude</dfn>
+:: Four numerals from 0 to 9 (two for degrees and two for minutes) followed by either the letter `N` (for North) or `S` (for South).
+
+: <dfn>longitude</dfn>
+:: Five numerals from 0 to 9 (three for degrees and two for minutes) followed by either the letter `W` (for West) or `E` (for East).
+
+<pre class=example>
+`"0917S 03220E"`
+</pre>
+
+## Properties ## {#properties}
+
+<figure id="pf-properties-table" dfn-type="element-attr" dfn-for="ProductFootprint">
+  <table class="data">
+    <thead>
+      <tr>
+        <th>Property
+        <th>Type
+        <th>Req
+        <th>Specification
+    <tbody>
+      <tr>
+        <td><dfn>unlocode</dfn>
+        <td>String
+        <td>M
+        <td>See [[#un-locode]] and section 1.2 of the [[!CONTENTS-AND-LAYOUT-OF-UNLOCODE]]
+      <tr>
+        <td><dfn>coordinates</dfn>
+        <td>String
+        <td>O
+        <td>Coordinates are optional but SHOULD be present when they are defined for the UN/LOCODE. See [[#coordinates]]
+        and section 1.10 of the [[!CONTENTS-AND-LAYOUT-OF-UNLOCODE]]
+
+      <tr>
+        <td><dfn>name</dfn>
+        <td>String
+        <td>O
+        <td>Name of the location as defined for the UN/LOCODE. See section 1.3 of the
+        [[!CONTENTS-AND-LAYOUT-OF-UNLOCODE]]
+
+      <tr>
+        <td><dfn>remarks</dfn>
+        <td>String
+        <td>O
+        <td>Remarks about the location, either defined for the UN/LOCODE (see section 1.11 of the
+        [[!CONTENTS-AND-LAYOUT-OF-UNLOCODE]]) or decided by the data owner.
+
+    </table>
+    <figcaption>Data Model Extension properties</figcaption>
+</figure>
+
+
+# Example `ProductFootprint` with extension # {#example}
+
+<pre highlight='json'>
+        {
+            "id": "d9be4477-e351-45b3-acd9-e1da05e6f633",
+            "specVersion": "2.0.0",
+            "version": 0,
+            "created": "2022-05-22T21:47:32Z",
+            "companyName": "My Corp",
+            "companyIds": [
+                "urn:uuid:51131FB5-42A2-4267-A402-0ECFEFAD1619",
+                "urn:epc:id:sgln:4063973.00000.8"
+            ],
+            "productDescription": "Cote'd Or Ethanol",
+            "productIds": [
+                "urn:gtin:4712345060507"
+            ],
+            "productCategoryCpc": "3342",
+            "productNameCompany": "Green Ethanol",
+            "comment": "",
+            "pcf": {
+                "declaredUnit": "liter",
+                "unitaryProductAmount": "12.0",
+                "fossilGhgEmissions": "0.123",
+                "biogenicEmissions": {
+                    "landUseEmissions": "0.001",
+                    "otherEmissions": "0"
+                },
+                "biogenicCarbonContent": "0.0",
+                "reportingPeriodStart": "2021-01-01T00:00:00Z",
+                "reportingPeriodEnd": "2022-01-01T00:00:00Z",
+                "geographyCountry": "ZM",
+                "primaryDataShare": 56.12,
+                "emissionFactorSources": [
+                    {
+                        "name": "Ecoinvent",
+                        "version":
+                        "1.2.3"
+                    }
+                ],
+                "boundaryProcessesDescription": "End-of-life included",
+                "crossSectoralStandardsUsed": [
+                    "GHG Protocol Product standard"
+                ],
+                "productOrSectorSpecificRules": [
+                    {
+                        "operator": "EPD International",
+                        "ruleNames": [
+                            "ABC 2021"
+                        ]
+                    }
+                ]
+            },
+            "extensions": [
+                {
+                    "specVersion": "2.0.0",
+                    "dataSchema": "https://github.com/sine-fdn/locode-extension/blob/main/locode_schema.json",
+                    "data": {
+                      "unlocode": "ZMCHZ",
+                      "coordinates": "0917S 03220E",
+                      "name": "Chozi"
+                    }
+                }
+            ]
+        }
+        </pre>
+
+<pre class=biblio>
+ {
+    "CONTENTS-AND-LAYOUT-OF-UNLOCODE": {
+        "authors": [],
+        "href": "https://service.unece.org/trade/locode/Service/LocodeColumn.htm#LOCODE",
+        "title": "Contents and Layout of UN/LOCODE: Codes and Abbreviations Used",
+        "status": "LS",
+        "publisher": "United Nations"
+    }
+  }
+</pre>
