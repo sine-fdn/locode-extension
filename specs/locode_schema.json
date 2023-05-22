@@ -13,6 +13,15 @@
       "type": "string",
       "pattern": "^[0-9]{4}(N|S) [0-9]{5}(W|E)$",
       "description": "Coordinates of the location according to UN/LOCODE"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the location according to UN/LOCODE"
+    },
+    "remarks": {
+      "type": "string",
+      "description": "Any remarks (either from UN/LOCODE or from data owner)"
     }
-  }
+  },
+  "required": ["unlocode"]
 }
