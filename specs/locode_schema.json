@@ -1,0 +1,16 @@
+{
+  "$id": "https://github.com/sine-fdn/locode-extension/blob/main/samples/locode_extension.json",
+  "$schema": "https://github.com/sine-fdn/locode-extension/blob/main/specs/locode_schema.json",
+  "title": "UN/LOCODE Data Model Extension",
+  "type": "object",
+  "properties": {
+    "unlocode": {
+      "type": "string",
+      "description": "UN/LOCODE with 5 (uppercase) characters: two for the country code and two for the location"
+    },
+    "coordinates": {
+      "type": "string",
+      "description": "Coordinates of the location according to UN/LOCODE"
+    }
+  }
+}
