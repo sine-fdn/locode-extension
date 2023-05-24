@@ -1,6 +1,6 @@
 {
   "$id": "https://github.com/sine-fdn/locode-extension/blob/main/samples/locode_extension.json",
-  "$schema": "https://github.com/sine-fdn/locode-extension/blob/main/specs/locode_schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "UN/LOCODE Data Model Extension",
   "type": "object",
   "properties": {
