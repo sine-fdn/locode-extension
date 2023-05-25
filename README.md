@@ -1,8 +1,14 @@
-# UN/LOCODE Data Model Extension version 0.1.0
+```
+**This extensions was created for demonstration purposes and is not meant for production purposes, yet**
+```
 
-This repository contains an Extension to the [Pathfinder Framework Data Model](https://wbcsd.github.io/data-exchange-protocol/v2/#data-model) that allows for the specification of the [UN/LOCODE](https://unece.org/trade/uncefact/unlocode) of a `ProductFootprint`.
 
-Developed by [SINE](https://sine.foundation).
+# UN/LOCODE Data Model Extension – version 0.1.0
+
+This repository contains a [Data Model Extension](https://wbcsd.github.io/data-model-extensions/)
+to the [Pathfinder Framework Data Model](https://wbcsd.github.io/data-exchange-protocol/v2/#data-model)
+that allows for the specification of the [UN/LOCODE](https://unece.org/trade/uncefact/unlocode)
+of a `ProductFootprint`.
 
 ## Technical Specifications
 
