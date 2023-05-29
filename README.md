@@ -1,5 +1,5 @@
 ```
-**This extensions was created for demonstration purposes and is not meant for production purposes, yet**
+**This extension was created for demonstration purposes and is not meant for production purposes, yet**
 ```
 
 
